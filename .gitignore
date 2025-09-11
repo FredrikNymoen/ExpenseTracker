@@ -1,0 +1,21 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build output
+#frontend/dist/
+#frontend/build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS/system
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
