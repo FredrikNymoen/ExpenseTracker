@@ -1,14 +1,10 @@
 import { getSession } from "../config/db.js";
+import { loadQuery } from "../utils/queryLoader.js";
 
 export const getUsers = async (req, res) => {
   const session = await getSession();
   try {
-    const cypher = `
-      MATCH (u:User)
-      RETURN u { .id, .name, createdAt: toString(u.createdAt) } AS user
-      ORDER BY u.createdAt DESC
-      LIMIT 50
-    `;
+    const cypher = loadQuery("getUsers"); // loads cypher/getUsers.cypher
     const result = await session.run(cypher);
     res.status(200).json(result.records.map((r) => r.get("user")));
   } catch (err) {
@@ -31,17 +27,8 @@ export const addUser = async (req, res) => {
 
   const session = await getSession();
   try {
-    const cypher = `
-      WITH randomUUID() AS id
-      CREATE (u:User {
-        id: id,
-        name: $name,
-        riskScore: "low",
-        balance: $balance,
-        createdAt: datetime()
-      })
-      RETURN u { .id, .name, .riskScore, .balance, createdAt: toString(u.createdAt) } AS user
-    `;
+    const cypher = loadQuery("addUser"); // loads cypher/addUser.cypher
+
     const result = await session.run(cypher, {
       name,
       balance: initialBalance,
@@ -58,13 +45,14 @@ export const addUser = async (req, res) => {
 export const getUser = async (req, res) => {
   const session = await getSession();
   try {
-    const cypher = `
-      MATCH (u:User { id: $id })
-      RETURN u { .id, .name, createdAt: toString(u.createdAt) } AS user
-    `;
+    
+    const cypher = loadQuery("getUser"); // loads cypher/getUser.cypher
+
     const result = await session.run(cypher, { id: req.params.id });
+
     if (result.records.length === 0)
       return res.status(404).json({ error: "User not found" });
+
     res.status(200).json(result.records[0].get("user"));
   } catch (err) {
     console.error(err);
