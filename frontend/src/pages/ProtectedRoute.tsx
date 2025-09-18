@@ -2,6 +2,7 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom"
 import { useAuth } from "react-oidc-context"
 import { Box, Spinner } from "@chakra-ui/react"
+import Header from "@/components/layout/Header"
 
 export function ProtectedRoute() {
     const auth = useAuth()
@@ -14,5 +15,12 @@ export function ProtectedRoute() {
         return <Navigate to="/login" state={{ from: location }} replace />
     }
 
-    return <Outlet />
+    return (
+        <Box>
+            <Header />
+            <Box as="main" p={6}>
+                <Outlet />
+            </Box>
+        </Box>
+    )
 }
