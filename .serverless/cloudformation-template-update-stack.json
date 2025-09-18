@@ -5,7 +5,7 @@
     "ApiLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/expensetracker-backend-dev-api"
+        "LogGroupName": "/aws/lambda/expensetracker-backend-api-dev"
       }
     },
     "IamRoleLambdaExecution": {
@@ -33,7 +33,7 @@
               "Fn::Join": [
                 "-",
                 [
-                  "expensetracker-backend",
+                  "expensetracker-backend-api-dev",
                   "dev",
                   "lambda"
                 ]
@@ -51,7 +51,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-dev*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-api-dev:*"
                     }
                   ]
                 },
@@ -62,7 +62,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-dev*:*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-api-dev:*:*"
                     }
                   ]
                 }
@@ -75,7 +75,7 @@
           "Fn::Join": [
             "-",
             [
-              "expensetracker-backend",
+              "expensetracker-backend-api-dev",
               "dev",
               {
                 "Ref": "AWS::Region"
@@ -91,11 +91,11 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-          "S3Key": "serverless/expensetracker-backend/dev/1757703104803-2025-09-12T18:51:44.803Z/expensetracker-backend.zip"
+          "S3Key": "serverless/expensetracker-backend-api-dev/dev/1758194691560-2025-09-18T11:24:51.560Z/expensetracker-backend-api-dev.zip"
         },
         "Handler": "backend/handler.lambdaHandler",
         "Runtime": "nodejs18.x",
-        "FunctionName": "expensetracker-backend-dev-api",
+        "FunctionName": "expensetracker-backend-api-dev",
         "MemorySize": 512,
         "Timeout": 15,
         "Environment": {
@@ -116,20 +116,20 @@
         "ApiLogGroup"
       ]
     },
-    "ApiLambdaVersionFuTjYABD1Z87fdHz387kvHr2wWakUOFoteSXg5U7U": {
+    "ApiLambdaVersionZJNya63y8RXZFIM8A3y9QqC8uu8BGvUXUYyNEnvR0": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ApiLambdaFunction"
         },
-        "CodeSha256": "8sSksa+HkKkrTEXY+Tpwz5oA4QIOqUwvOL1POhkRSgo="
+        "CodeSha256": "aPlHAMUc8D9nHFClLK0Pmo/HzWg2f1kNC35La4mIp3E="
       }
     },
     "HttpApi": {
       "Type": "AWS::ApiGatewayV2::Api",
       "Properties": {
-        "Name": "dev-expensetracker-backend",
+        "Name": "dev-expensetracker-backend-api-dev",
         "ProtocolType": "HTTP",
         "CorsConfiguration": {
           "AllowHeaders": [
@@ -249,16 +249,16 @@
     "ServerlessDeploymentBucketName": {
       "Value": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
       "Export": {
-        "Name": "sls-expensetracker-backend-dev-ServerlessDeploymentBucketName"
+        "Name": "sls-expensetracker-backend-api-dev-dev-ServerlessDeploymentBucketName"
       }
     },
     "ApiLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ApiLambdaVersionFuTjYABD1Z87fdHz387kvHr2wWakUOFoteSXg5U7U"
+        "Ref": "ApiLambdaVersionZJNya63y8RXZFIM8A3y9QqC8uu8BGvUXUYyNEnvR0"
       },
       "Export": {
-        "Name": "sls-expensetracker-backend-dev-ApiLambdaFunctionQualifiedArn"
+        "Name": "sls-expensetracker-backend-api-dev-dev-ApiLambdaFunctionQualifiedArn"
       }
     },
     "HttpApiId": {
@@ -267,7 +267,7 @@
         "Ref": "HttpApi"
       },
       "Export": {
-        "Name": "sls-expensetracker-backend-dev-HttpApiId"
+        "Name": "sls-expensetracker-backend-api-dev-dev-HttpApiId"
       }
     },
     "HttpApiUrl": {
@@ -292,7 +292,7 @@
         ]
       },
       "Export": {
-        "Name": "sls-expensetracker-backend-dev-HttpApiUrl"
+        "Name": "sls-expensetracker-backend-api-dev-dev-HttpApiUrl"
       }
     }
   }

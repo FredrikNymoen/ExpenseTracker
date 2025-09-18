@@ -1,4 +1,4 @@
-service: expensetracker-backend
+service: expensetracker-backend-api
 frameworkVersion: "4"
 
 provider:
@@ -13,10 +13,11 @@ provider:
     NEO4J_PASSWORD: ${env:NEO4J_PASSWORD}
   httpApi:
     cors: true
+  stage: dev
 
 functions:
   api:
-    name: expensetracker-backend-api-prod
+    name: expensetracker-backend-api
     handler: backend/handler.lambdaHandler
     events:
       - httpApi:
@@ -35,3 +36,6 @@ package:
     - "!frontend/**"
     - "!.env*"
     - "!**/*.md"
+
+
+# deploy: npx serverless deploy
