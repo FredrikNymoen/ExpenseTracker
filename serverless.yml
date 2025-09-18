@@ -1,0 +1,41 @@
+service: expensetracker-backend-api
+frameworkVersion: "4"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-north-1
+  memorySize: 512
+  timeout: 15
+  environment:
+    NEO4J_URI: ${env:NEO4J_URI}
+    NEO4J_USERNAME: ${env:NEO4J_USERNAME}
+    NEO4J_PASSWORD: ${env:NEO4J_PASSWORD}
+  httpApi:
+    cors: true
+  stage: dev
+
+functions:
+  api:
+    name: expensetracker-backend-api
+    handler: backend/handler.lambdaHandler
+    events:
+      - httpApi:
+          method: ANY
+          path: /{proxy+}
+
+# Keep package broad enough to include node_modules at repo root,
+# but exclude the frontend to reduce size.
+package:
+  patterns:
+    - "backend/**"
+    - "!backend/server.js"   # <- excludes server.js
+    - "node_modules/**"
+    - "package.json"
+    - "package-lock.json"
+    - "!frontend/**"
+    - "!.env*"
+    - "!**/*.md"
+
+
+# deploy: npx serverless deploy

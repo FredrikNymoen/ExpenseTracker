@@ -1,14 +1,8 @@
 import { Router } from "express";
-import { getUsers, addUser, getUser } from "../controllers/userController.js";
+import { getUsers, addUser, getUser, deleteUser } from "../controllers/userController.js";
 
 
 const router = Router();
-
-
-/**
- * Demo model:
- * (:User { id: string, name: string, createdAt: datetime })
- */
 
 
 // GET /api/users  -> list users
@@ -20,5 +14,7 @@ router.post("/", addUser)
 // GET /api/users/:id -> get one user
 router.get("/:id", getUser)
 
+// DELETE /api/users/:id -> delete user
+router.delete("/:id", deleteUser);
 
 export default router;

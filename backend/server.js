@@ -8,7 +8,7 @@ import { driver } from "./config/db.js";
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: true, credentials: true })); // Can be reached from anywhere
 app.use(express.json());
 
 app.get("/ping", (req, res) => res.json({ ok: true }));
