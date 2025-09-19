@@ -1,8 +1,8 @@
 {
   "service": {
-    "service": "expensetracker-backend-api-dev",
+    "service": "expensetracker-backend-api",
     "serviceObject": {
-      "name": "expensetracker-backend-api-dev"
+      "name": "expensetracker-backend-api"
     },
     "provider": {
       "name": "aws",
@@ -27,7 +27,7 @@
           "ApiLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/expensetracker-backend-api-dev"
+              "LogGroupName": "/aws/lambda/expensetracker-backend-api"
             }
           },
           "IamRoleLambdaExecution": {
@@ -55,7 +55,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "expensetracker-backend-api-dev",
+                        "expensetracker-backend-api",
                         "dev",
                         "lambda"
                       ]
@@ -73,7 +73,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-api-dev:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-api:*"
                           }
                         ]
                       },
@@ -84,7 +84,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-api-dev:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/expensetracker-backend-api:*:*"
                           }
                         ]
                       }
@@ -97,7 +97,7 @@
                 "Fn::Join": [
                   "-",
                   [
-                    "expensetracker-backend-api-dev",
+                    "expensetracker-backend-api",
                     "dev",
                     {
                       "Ref": "AWS::Region"
@@ -113,11 +113,11 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-                "S3Key": "serverless/expensetracker-backend-api-dev/dev/1758194691560-2025-09-18T11:24:51.560Z/expensetracker-backend-api-dev.zip"
+                "S3Key": "serverless/expensetracker-backend-api/dev/1758200200947-2025-09-18T12:56:40.947Z/expensetracker-backend-api.zip"
               },
               "Handler": "backend/handler.lambdaHandler",
               "Runtime": "nodejs18.x",
-              "FunctionName": "expensetracker-backend-api-dev",
+              "FunctionName": "expensetracker-backend-api",
               "MemorySize": 512,
               "Timeout": 15,
               "Environment": {
@@ -138,20 +138,20 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionZJNya63y8RXZFIM8A3y9QqC8uu8BGvUXUYyNEnvR0": {
+          "ApiLambdaVersionHZkTgJJBDG9uqLlOFHjsriqP906vYdrsvF3yCBK2po": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "aPlHAMUc8D9nHFClLK0Pmo/HzWg2f1kNC35La4mIp3E="
+              "CodeSha256": "aL9GMZtVXa2W7MFI42aLaG4ZagEBc6au4i2brR2rotM="
             }
           },
           "HttpApi": {
             "Type": "AWS::ApiGatewayV2::Api",
             "Properties": {
-              "Name": "dev-expensetracker-backend-api-dev",
+              "Name": "dev-expensetracker-backend-api",
               "ProtocolType": "HTTP",
               "CorsConfiguration": {
                 "AllowHeaders": [
@@ -268,16 +268,16 @@
           "ServerlessDeploymentBucketName": {
             "Value": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
             "Export": {
-              "Name": "sls-expensetracker-backend-api-dev-dev-ServerlessDeploymentBucketName"
+              "Name": "sls-expensetracker-backend-api-dev-ServerlessDeploymentBucketName"
             }
           },
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionZJNya63y8RXZFIM8A3y9QqC8uu8BGvUXUYyNEnvR0"
+              "Ref": "ApiLambdaVersionHZkTgJJBDG9uqLlOFHjsriqP906vYdrsvF3yCBK2po"
             },
             "Export": {
-              "Name": "sls-expensetracker-backend-api-dev-dev-ApiLambdaFunctionQualifiedArn"
+              "Name": "sls-expensetracker-backend-api-dev-ApiLambdaFunctionQualifiedArn"
             }
           },
           "HttpApiId": {
@@ -286,7 +286,7 @@
               "Ref": "HttpApi"
             },
             "Export": {
-              "Name": "sls-expensetracker-backend-api-dev-dev-HttpApiId"
+              "Name": "sls-expensetracker-backend-api-dev-HttpApiId"
             }
           },
           "HttpApiUrl": {
@@ -311,7 +311,7 @@
               ]
             },
             "Export": {
-              "Name": "sls-expensetracker-backend-api-dev-dev-HttpApiUrl"
+              "Name": "sls-expensetracker-backend-api-dev-HttpApiUrl"
             }
           }
         }
@@ -321,7 +321,7 @@
     "pluginsData": {},
     "functions": {
       "api": {
-        "name": "expensetracker-backend-api-dev",
+        "name": "expensetracker-backend-api",
         "handler": "backend/handler.lambdaHandler",
         "events": [
           {
@@ -338,13 +338,13 @@
         "timeout": 15,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionZJNya63y8RXZFIM8A3y9QqC8uu8BGvUXUYyNEnvR0"
+        "versionLogicalId": "ApiLambdaVersionHZkTgJJBDG9uqLlOFHjsriqP906vYdrsvF3yCBK2po"
       }
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless",
     "initialServerlessConfig": {
-      "service": "expensetracker-backend-api-dev",
+      "service": "expensetracker-backend-api",
       "frameworkVersion": "4",
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
@@ -363,19 +363,19 @@
           "!.env*",
           "!**/*.md"
         ],
-        "artifactsS3KeyDirname": "serverless/expensetracker-backend-api-dev/dev/code-artifacts",
+        "artifactsS3KeyDirname": "serverless/expensetracker-backend-api/dev/code-artifacts",
         "deploymentBucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-        "artifact": "C:\\Users\\fredr\\Documents\\webDevBootcamp\\ExpenseTracker\\.serverless\\expensetracker-backend-api-dev.zip",
-        "artifactDirectoryName": "serverless/expensetracker-backend-api-dev/dev/1758194691560-2025-09-18T11:24:51.560Z"
+        "artifact": "C:\\Users\\fredr\\Documents\\webDevBootcamp\\ExpenseTracker\\.serverless\\expensetracker-backend-api.zip",
+        "artifactDirectoryName": "serverless/expensetracker-backend-api/dev/1758200200947-2025-09-18T12:56:40.947Z"
       }
     },
     "appId": null,
     "orgId": null,
     "layers": {},
-    "artifact": "C:\\Users\\fredr\\Documents\\webDevBootcamp\\ExpenseTracker\\.serverless\\expensetracker-backend-api-dev.zip"
+    "artifact": "C:\\Users\\fredr\\Documents\\webDevBootcamp\\ExpenseTracker\\.serverless\\expensetracker-backend-api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/expensetracker-backend-api-dev/dev/1758194691560-2025-09-18T11:24:51.560Z",
-    "artifact": "expensetracker-backend-api-dev.zip"
+    "artifactDirectoryName": "serverless/expensetracker-backend-api/dev/1758200200947-2025-09-18T12:56:40.947Z",
+    "artifact": "expensetracker-backend-api.zip"
   }
 }

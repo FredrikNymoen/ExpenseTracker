@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getUsers, addUser, getUser, deleteUser } from "../controllers/userController.js";
-
+import { auth } from "../middleware/auth.js";
 
 const router = Router();
 
@@ -9,7 +9,7 @@ const router = Router();
 router.get("/", getUsers)
 
 // POST /api/users  { id, name } -> create user
-router.post("/", addUser)
+router.post("/", auth, addUser)
 
 // GET /api/users/:id -> get one user
 router.get("/:id", getUser)
