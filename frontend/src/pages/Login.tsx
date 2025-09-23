@@ -60,7 +60,7 @@ export default function Login() {
         top="0px"
         left="0px"
         transform="translateY(-20%)"
-        w={{ base: "140px", md: "160px", lg: "180px" }} // responsiv størrelse
+        w={{ base: "140px", md: "160px", lg: "180px" }}
         draggable={false}
       />
       <Text fontSize="xl" fontWeight={"bold"} textAlign={"center"}>

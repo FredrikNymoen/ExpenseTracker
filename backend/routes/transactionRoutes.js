@@ -4,6 +4,7 @@ import {
   getUserTransactions,
 } from "../controllers/transactionController.js";
 
+// api/transactions
 const router = Router();
 
 // Create a transaction between two users

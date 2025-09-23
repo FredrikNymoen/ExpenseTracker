@@ -10,6 +10,7 @@ CALL (u) {
       tx: {
         id: t.id,
         amount: t.amount,
+        category: t.category,
         description: t.description,
         date: toString(t.date)
       },
@@ -27,6 +28,7 @@ CALL (u) {
       tx: {
         id: t2.id,
         amount: t2.amount,
+        category: t2.category,
         description: t2.description,
         date: toString(t2.date)
       },

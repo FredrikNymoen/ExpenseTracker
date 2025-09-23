@@ -13,8 +13,8 @@ import {
 import { MdHome, MdSwapHoriz, MdMenu } from "react-icons/md";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
-const activeBgLight = "cyan.200";
-const activeBgDark = "cyan.800";
+const activeTextLight = "accent";
+const activeBgDark = "grey.700";
 
 export default function Header() {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -68,32 +68,16 @@ export default function Header() {
                     <Menu.Item
                       value="dashboard"
                       onClick={() => navigate("/dashboard")}
-                      bg={
-                        isActivePath("/dashboard")
-                          ? activeBgLight
-                          : "transparent"
-                      }
-                      _dark={{
-                        bg: isActivePath("/dashboard")
-                          ? activeBgDark
-                          : "transparent",
-                      }}
+                      bg="transparent"
+                      color={ isActivePath("/dashboard") ? activeTextLight : "black" }
                     >
                       <Icon as={MdHome} mr={2} /> Dashboard
                     </Menu.Item>
                     <Menu.Item
                       value="transactions"
                       onClick={() => navigate("/transactions")}
-                      bg={
-                        isActivePath("/transactions")
-                          ? activeBgLight
-                          : "transparent"
-                      }
-                      _dark={{
-                        bg: isActivePath("/transactions")
-                          ? activeBgDark
-                          : "transparent",
-                      }}
+                      bg="transparent"
+                      color={ isActivePath("/transactions") ? activeTextLight : "black" }
                     >
                       <Icon as={MdSwapHoriz} mr={2} /> Transactions
                     </Menu.Item>
@@ -107,10 +91,9 @@ export default function Header() {
                 {({ isActive }) => (
                   <Button
                     variant="subtle"
-                    color="accent"
+                    color={isActive ? activeTextLight : "black"}
                     fontWeight="600"
-                    bg={isActive ? activeBgLight : "transparent"}
-                    _dark={{ bg: isActive ? activeBgDark : "transparent" }}
+                    bg="transparent"
                   >
                     <Icon as={MdHome} mr={1} /> Dashboard
                   </Button>
@@ -120,10 +103,9 @@ export default function Header() {
                 {({ isActive }) => (
                   <Button
                     variant="subtle"
-                    color="accent"
+                    color={isActive ? activeTextLight : "black"}
                     fontWeight="600"
-                    bg={isActive ? activeBgLight : "transparent"}
-                    _dark={{ bg: isActive ? activeBgDark : "transparent" }}
+                    bg="transparent"
                   >
                     <Icon as={MdSwapHoriz} mr={1} /> Transactions
                   </Button>
@@ -151,11 +133,12 @@ export default function Header() {
         <HStack>
           <NavLink to="/profile">
             <Circle
-              size="32px"
-              bg="accent"
-              color="white"
+              size="39px"
+              bg="#f5f4f4ff"
+              color="#388E3C"
               fontSize="sm"
               fontWeight="bold"
+              border={"2px solid #388E3C"}
             >
               U
             </Circle>

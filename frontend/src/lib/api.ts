@@ -6,6 +6,20 @@ export interface User {
   riskScore: string;
 }
 
+// Transaction interface based on your backend structure
+export interface Transaction {
+  role: "sent" | "received";
+  tx: {
+    id: string;
+    amount: number;
+    description: string;
+    date: string;
+    category: string;
+  };
+  to?: { id: string; name: string };
+  from?: { id: string; name: string };
+}
+
 async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
   const res = await fetch(`http://localhost:5000/api${path}`, init);
   const ct = res.headers.get("content-type") || "";
@@ -31,4 +45,9 @@ export async function ensureMe(
       ...(defaultName ? { "x-default-name": defaultName } : {}),
     },
   });
+}
+
+
+export async function getUserTransactions(userId: string) : Promise<Transaction[]> {
+  return fetchJson<Transaction[]>(`/transactions/user/${userId}`);
 }
