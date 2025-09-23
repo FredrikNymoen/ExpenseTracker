@@ -1,4 +1,4 @@
-import { Box, Button, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Spinner, Text, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -48,12 +48,25 @@ export default function Login() {
       h="100vh"
       bg="background"
       color="accent"
-      bgImg={"url('/background.png')"}
+      bgImg="url('/whiteBackground.png')"
+      bgSize="cover"
+      bgRepeat="no-repeat"
+      bgPos="bottom"
     >
+      <Image
+        src="/expTrLogo.png"
+        alt="ExpenseTracker Logo"
+        position="absolute"
+        top="0px"
+        left="0px"
+        transform="translateY(-20%)"
+        w={{ base: "140px", md: "160px", lg: "180px" }} // responsiv størrelse
+        draggable={false}
+      />
       <Text fontSize="xl" fontWeight={"bold"} textAlign={"center"}>
         Send and receive money instantly, securely and hassle-free.
       </Text>
-      <Text fontSize="5xl" mb={6} fontWeight={"bold"} textAlign={"center"}>
+      <Text fontSize="5xl" mb={9} fontWeight={"bold"} textAlign={"center"} lineHeight={"1"}>
         {displayText}
       </Text>
 
@@ -61,7 +74,7 @@ export default function Login() {
         Login
       </Button>
 
-      <Text fontSize="xs" mt={2}>
+      <Text fontSize="xs" mt={2} textAlign={"center"}>
         When you log in, you’ll be redirected to Amazon Cognito for secure
         authentication.
       </Text>
