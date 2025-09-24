@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Text,
   Container,
   VStack,
   GridItem,
-  Spinner,
   Alert,
   Card,
   Heading,
@@ -24,6 +23,7 @@ import type { User } from "../lib/api";
 import type { Transaction } from "../lib/api";
 import { ensureMe, getUserTransactions } from "../lib/api";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "@/components/LoadingScreen";
 
 // Icons (you can replace these with actual Chakra icons or lucide-react)
 const WalletIcon = () => (
@@ -82,14 +82,6 @@ const Dashboard = () => {
         const me = await ensureMe(token!, defaultName);
         setUser(me);
 
-        // Fetch transactions
-        // const transactionsResponse = await fetch(
-        //   `http://localhost:5000/api/transactions/user/${me.id}`,
-        //   {
-        //     signal: ctrl.signal
-        //   }
-        // );
-
         const transactionsResponse = await getUserTransactions(me.id);
 
         if (!Array.isArray(transactionsResponse)) {
@@ -144,24 +136,7 @@ const Dashboard = () => {
       .filter((t) => t.role === "received")
       .reduce((sum, t) => sum + t.tx.amount, 0);
 
-  if (loading) {
-    return (
-      <Box
-        minH="100vh"
-        bgGradient={bgGradient}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <VStack gap={4}>
-          <Spinner size="xl" color="blue.500" />
-          <Text fontSize="lg" color="gray.600">
-            Loading your dashboard...
-          </Text>
-        </VStack>
-      </Box>
-    );
-  }
+  if (loading) return <LoadingScreen />;
 
   if (error) {
     return (
@@ -422,8 +397,13 @@ const Dashboard = () => {
                             _hover={{ bg: "gray.100" }}
                             transition="background 0.2s"
                           >
+                            
                             <Flex align="center">
                               <Avatar.Root size="lg" mr={4}>
+                                <Avatar.Image
+                                  src={transaction.role === "sent" ? transaction.to?.img : transaction.from?.img}
+                                  alt="Profile image"
+                                />
                                 <Avatar.Fallback
                                   name={
                                     transaction.role === "sent"
@@ -437,10 +417,8 @@ const Dashboard = () => {
                                   }
                                   color="white"
                                 />
-                                {/* <Avatar.Image
-                                  src="/expenseTracker.png"
-                                  alt="Avatar"
-                                /> */}
+                                
+                              
                               </Avatar.Root>
                               <VStack align="start" gap={0}>
                                 <Text fontWeight="semibold" color="gray.900">

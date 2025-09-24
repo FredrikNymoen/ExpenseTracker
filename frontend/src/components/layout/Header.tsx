@@ -1,26 +1,47 @@
+import { getUserByCognitoSub } from "@/lib/api";
 import {
   Button,
   HStack,
   Flex,
   Icon,
-  Circle,
   Image,
   useBreakpointValue,
   Menu,
   Portal,
   Text,
+  Avatar
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { MdHome, MdSwapHoriz, MdMenu } from "react-icons/md";
+import { useAuth } from "react-oidc-context";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
 const activeTextLight = "accent";
-const activeBgDark = "grey.700";
 
 export default function Header() {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const auth = useAuth();
   const isActivePath = (to: string) => pathname.startsWith(to);
+
+  const [img, setImg] = useState<string>();
+  const [name, setName] = useState<string>();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (auth.isAuthenticated && auth.user?.profile.sub) {
+        try {
+          const user = await getUserByCognitoSub(auth.user.profile.sub);
+          setImg(user.img || "");
+          setName(user.name || "User");
+        } catch (err) {
+          console.error("Failed to fetch user:", err);
+        }
+      }
+    };
+    fetchUser();
+  }, [auth]);
 
   return (
     <Flex
@@ -132,16 +153,16 @@ export default function Header() {
       <Flex flex="1" justify="flex-end">
         <HStack>
           <NavLink to="/profile">
-            <Circle
-              size="39px"
-              bg="#f5f4f4ff"
-              color="#388E3C"
-              fontSize="sm"
-              fontWeight="bold"
-              border={"2px solid #388E3C"}
-            >
-              U
-            </Circle>
+            <Avatar.Root size="md">
+              <Avatar.Image src={img} alt={name} />
+              <Avatar.Fallback
+                name={name}
+                bg="#388E3C"
+                color="white"
+                fontWeight="bold"
+                border="2px solid #388E3C"
+              />
+            </Avatar.Root>
           </NavLink>
         </HStack>
       </Flex>

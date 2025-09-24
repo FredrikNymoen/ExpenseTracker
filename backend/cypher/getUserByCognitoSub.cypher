@@ -1,2 +1,2 @@
-MATCH (u:User { cognitoSub: $cognitoSub })
-RETURN u { .* } AS user
+MATCH (u:User {cognitoSub: $cognitoSub})
+RETURN u {.*} AS user

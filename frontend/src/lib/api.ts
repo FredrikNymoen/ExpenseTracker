@@ -4,6 +4,7 @@ export interface User {
   name: string;
   balance: number;
   riskScore: string;
+  img: string;
 }
 
 // Transaction interface based on your backend structure
@@ -16,8 +17,8 @@ export interface Transaction {
     date: string;
     category: string;
   };
-  to?: { id: string; name: string };
-  from?: { id: string; name: string };
+  to?: { id: string; name: string, img: string };
+  from?: { id: string; name: string, img: string };
 }
 
 async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -50,4 +51,8 @@ export async function ensureMe(
 
 export async function getUserTransactions(userId: string) : Promise<Transaction[]> {
   return fetchJson<Transaction[]>(`/transactions/user/${userId}`);
+}
+
+export async function getUserByCognitoSub(cognitoSub?: string) : Promise<User> {
+  return fetchJson<User>(`/users/cognito/${cognitoSub}`);
 }

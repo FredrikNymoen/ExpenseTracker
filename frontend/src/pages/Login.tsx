@@ -1,4 +1,5 @@
-import { Box, Button, Spinner, Text, Image } from "@chakra-ui/react";
+import LoadingScreen from "@/components/LoadingScreen";
+import { Box, Button, Text, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -30,12 +31,7 @@ export default function Login() {
     return () => clearInterval(interval);
   }, []);
 
-  if (auth.isLoading)
-    return (
-      <Box>
-        <Spinner /> Loading...
-      </Box>
-    );
+  if (auth.isLoading) return <LoadingScreen />;
   if (auth.error) return <Box>Auth error: {auth.error.message}</Box>;
   if (auth.isAuthenticated) return null;
 

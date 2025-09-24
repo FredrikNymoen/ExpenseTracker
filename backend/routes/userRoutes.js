@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUsers, addUser, getUser, deleteUser } from "../controllers/userController.js";
+import { getUsers, addUser, getUser, deleteUser, getUserByCognitoSub } from "../controllers/userController.js";
 import { auth } from "../middleware/auth.js";
 
 const router = Router();
@@ -16,5 +16,8 @@ router.get("/:id", getUser)
 
 // DELETE /api/users/:id -> delete user
 router.delete("/:id", deleteUser);
+
+// GET /api/users/cognito/:cognitoSub -> get one user by cognitoSub
+router.get("/cognito/:cognitoSub", getUserByCognitoSub);
 
 export default router;

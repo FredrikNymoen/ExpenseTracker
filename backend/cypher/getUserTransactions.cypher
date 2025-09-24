@@ -14,7 +14,7 @@ CALL (u) {
         description: t.description,
         date: toString(t.date)
       },
-      to: {id: r.id, name: r.name}
+      to: {id: r.id, name: r.name, img: r.img}
     }) AS sent
 }
 
@@ -32,7 +32,7 @@ CALL (u) {
         description: t2.description,
         date: toString(t2.date)
       },
-      from: {id: s.id, name: s.name}
+      from: {id: s.id, name: s.name, img: s.img}
     }) AS received
 }
 
