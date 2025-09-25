@@ -9,7 +9,7 @@ import {
   Menu,
   Portal,
   Text,
-  Avatar
+  Avatar,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { MdHome, MdSwapHoriz, MdMenu } from "react-icons/md";
@@ -33,7 +33,7 @@ export default function Header() {
       if (auth.isAuthenticated && auth.user?.profile.sub) {
         try {
           const user = await getUserByCognitoSub(auth.user.profile.sub);
-          setImg(user.img || "");
+          setImg(user.img && user.img.trim() !== "" ? user.img : undefined);
           setName(user.name || "User");
         } catch (err) {
           console.error("Failed to fetch user:", err);
@@ -90,7 +90,9 @@ export default function Header() {
                       value="dashboard"
                       onClick={() => navigate("/dashboard")}
                       bg="transparent"
-                      color={ isActivePath("/dashboard") ? activeTextLight : "black" }
+                      color={
+                        isActivePath("/dashboard") ? activeTextLight : "black"
+                      }
                     >
                       <Icon as={MdHome} mr={2} /> Dashboard
                     </Menu.Item>
@@ -98,7 +100,11 @@ export default function Header() {
                       value="transactions"
                       onClick={() => navigate("/transactions")}
                       bg="transparent"
-                      color={ isActivePath("/transactions") ? activeTextLight : "black" }
+                      color={
+                        isActivePath("/transactions")
+                          ? activeTextLight
+                          : "black"
+                      }
                     >
                       <Icon as={MdSwapHoriz} mr={2} /> Transactions
                     </Menu.Item>
@@ -153,14 +159,25 @@ export default function Header() {
       <Flex flex="1" justify="flex-end">
         <HStack>
           <NavLink to="/profile">
-            <Avatar.Root size="md">
+            <Avatar.Root
+              boxSize={{ base: "55px", md: "59px" }}
+              borderRadius="full"
+              aspectRatio="1"
+              overflow="hidden"
+            >
               <Avatar.Image src={img} alt={name} />
               <Avatar.Fallback
                 name={name}
-                bg="#388E3C"
+                bg="linear-gradient(90deg, #2F855A, #38A169)"
                 color="white"
                 fontWeight="bold"
+                fontSize={{ base: "28px", md: "32px" }}
                 border="2px solid #388E3C"
+                borderRadius="full"
+                p="5"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
               />
             </Avatar.Root>
           </NavLink>

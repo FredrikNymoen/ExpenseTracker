@@ -4,8 +4,7 @@ import dotenv from "dotenv";
 import users from "./routes/userRoutes.js";
 import transactions from "./routes/transactionRoutes.js";
 import { driver } from "./config/db.js";
-import { auth } from "./middleware/auth.js";
-import { ensureMe } from "./controllers/userController.js";
+import meRoutes from "./routes/meRoutes.js";
 
 dotenv.config();
 
@@ -13,7 +12,7 @@ const app = express();
 app.use(cors({ origin: true, credentials: true })); // Can be reached from anywhere
 app.use(express.json());
 
-app.get("/api/me", auth, ensureMe);
+app.use("/api/me", meRoutes);
 app.use("/api/users", users);
 app.use("/api/transactions", transactions);
 

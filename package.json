@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/FredrikNymoen/ExpenseTracker#readme",
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.896.0",
     "@vendia/serverless-express": "^4.12.6",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",

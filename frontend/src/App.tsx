@@ -6,10 +6,12 @@ import Transactions from "./pages/Transactions";
 import ProtectedLayout from "./components/layout/ProtectedLayout";
 import { ProtectedRoute } from "./pages/ProtectedRoute";
 import Callback from "./pages/Callback";
+import { Toaster } from "./components/ui/toaster";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         {/* Callback */}
         <Route path="/callback" element={<Callback />} />

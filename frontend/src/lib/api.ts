@@ -17,8 +17,27 @@ export interface Transaction {
     date: string;
     category: string;
   };
-  to?: { id: string; name: string, img: string };
-  from?: { id: string; name: string, img: string };
+  to?: { id: string; name: string; img: string };
+  from?: { id: string; name: string; img: string };
+}
+
+export interface CreateTransactionRequest {
+  receiverId: string;
+  amount: number;
+  description?: string;
+  category?: string;
+}
+
+export interface CreateTransactionResponse {
+  sender: User;
+  receiver: User;
+  transaction: {
+    id: string;
+    amount: number;
+    description: string;
+    date: string;
+    category: string;
+  };
 }
 
 async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -48,11 +67,87 @@ export async function ensureMe(
   });
 }
 
-
-export async function getUserTransactions(userId: string) : Promise<Transaction[]> {
+export async function getUserTransactions(
+  userId: string
+): Promise<Transaction[]> {
   return fetchJson<Transaction[]>(`/transactions/user/${userId}`);
 }
 
-export async function getUserByCognitoSub(cognitoSub?: string) : Promise<User> {
+export async function getAllUsers(): Promise<User[]> {
+  return fetchJson<User[]>("/users");
+}
+
+export async function createTransaction(
+  token: string,
+  data: CreateTransactionRequest
+): Promise<CreateTransactionResponse> {
+  return fetchJson<CreateTransactionResponse>("/transactions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export interface PatchUserRequest {
+  img?: string;
+  name?: string;
+  // riskScore is now automatically calculated, not manually set
+}
+
+export async function patchUser(
+  token: string,
+  data: PatchUserRequest
+): Promise<User> {
+  return fetchJson<User>("/me", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export async function getUserByCognitoSub(cognitoSub?: string): Promise<User> {
   return fetchJson<User>(`/users/cognito/${cognitoSub}`);
+}
+
+export async function deleteMe(token: string): Promise<{ message: string }> {
+  return fetchJson<{ message: string }>("/me", {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export async function changePassword(
+  token: string,
+  newPassword: string
+): Promise<{ message: string }> {
+  return fetchJson<{ message: string }>("/me/change-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ newPassword }),
+  });
+}
+
+export async function recalculateRiskScore(
+  token: string
+): Promise<{ message: string; user: User; newRiskScore: string }> {
+  return fetchJson<{ message: string; user: User; newRiskScore: string }>(
+    "/me/recalculate-risk",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 }
