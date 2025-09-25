@@ -51,6 +51,11 @@ export default function Login() {
     }
   }, [auth.isAuthenticated, from, navigate]);
 
+  // Clean up logout flag when entering login page
+  useEffect(() => {
+    sessionStorage.removeItem("logout_in_progress");
+  }, []);
+
   // typing animation
   useEffect(() => {
     let i = 0;

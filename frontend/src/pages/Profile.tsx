@@ -346,7 +346,6 @@ export default function Profile() {
                         <Flex justify="center" mb={4}>
                           <Image
                             src={imagePreview || img}
-                            alt="Profile preview"
                             boxSize="120px"
                             objectFit="cover"
                             borderRadius="full"
@@ -542,17 +541,25 @@ export default function Profile() {
                   variant="outline"
                   colorPalette="gray"
                   onClick={() => {
-                    // First clear local authentication state
+                    // Set logout flag to prevent ProtectedRoute Navigate trigger
+                    sessionStorage.setItem("logout_in_progress", "true");
+
+                    // Remove user from local auth state
                     auth.removeUser();
 
-                    // Then redirect to Cognito logout to clear server-side session
-                    const clientId = "jsj2h93siq9ksbetblkeh9f0s";
-                    const logoutUri = "http://localhost:5173/login";
-                    const cognitoDomain =
-                      "https://eu-north-1hbz87ldis.auth.eu-north-1.amazoncognito.com";
-                    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
-                      logoutUri
-                    )}`;
+                    // Small delay to let ProtectedRoute check the flag before redirect
+                    setTimeout(() => {
+                      const clientId = "jsj2h93siq9ksbetblkeh9f0s";
+                      const logoutUri = "http://localhost:5173/login";
+                      const cognitoDomain =
+                        "https://eu-north-1hbz87ldis.auth.eu-north-1.amazoncognito.com";
+
+                      window.location.replace(
+                        `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
+                          logoutUri
+                        )}`
+                      );
+                    }, 100);
                   }}
                 >
                   Sign Out

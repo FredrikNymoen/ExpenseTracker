@@ -1,9 +1,10 @@
 MATCH (u:User {id: $id})
 
-// Sent transactions
+// Sent transactions (motpart kan være slettet)
 CALL (u) {
   WITH u
-  MATCH (u)-[:SENT]->(t:Transaction)-[:RECEIVED_BY]->(r:User)
+  MATCH (u)-[:SENT]->(t:Transaction)
+  OPTIONAL MATCH (t)-[:RECEIVED_BY]->(r:User)
   RETURN
     collect({
       role: 'sent',
@@ -14,14 +15,19 @@ CALL (u) {
         description: t.description,
         date: toString(t.date)
       },
-      to: {id: r.id, name: r.name, img: r.img}
+      to:
+        CASE
+          WHEN r IS NULL THEN {id: null, name: "Deleted User", img: null}
+          ELSE {id: r.id, name: r.name, img: r.img}
+        END
     }) AS sent
 }
 
-// Received transactions
+// Received transactions (avsender kan være slettet)
 CALL (u) {
   WITH u
-  MATCH (s:User)-[:SENT]->(t2:Transaction)-[:RECEIVED_BY]->(u)
+  MATCH (t2:Transaction)-[:RECEIVED_BY]->(u)
+  OPTIONAL MATCH (s:User)-[:SENT]->(t2)
   RETURN
     collect({
       role: 'received',
@@ -32,7 +38,11 @@ CALL (u) {
         description: t2.description,
         date: toString(t2.date)
       },
-      from: {id: s.id, name: s.name, img: s.img}
+      from:
+        CASE
+          WHEN s IS NULL THEN {id: null, name: "Deleted User", img: null}
+          ELSE {id: s.id, name: s.name, img: s.img}
+        END
     }) AS received
 }
 
@@ -40,4 +50,4 @@ WITH sent + received AS allTx
 UNWIND allTx AS item
 WITH item
 ORDER BY datetime(item.tx.date) DESC
-RETURN collect(item) AS transactions
+RETURN collect(item) AS transactions;

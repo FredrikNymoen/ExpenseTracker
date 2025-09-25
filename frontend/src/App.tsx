@@ -7,6 +7,7 @@ import ProtectedLayout from "./components/layout/ProtectedLayout";
 import { ProtectedRoute } from "./pages/ProtectedRoute";
 import Callback from "./pages/Callback";
 import { Toaster } from "./components/ui/toaster";
+import { UserDataProvider } from "./contexts/UserDataProvider";
 
 export default function App() {
   return (
@@ -21,7 +22,13 @@ export default function App() {
 
         {/* Protected pages */}
         <Route element={<ProtectedRoute />}>
-          <Route element={<ProtectedLayout />}>
+          <Route
+            element={
+              <UserDataProvider>
+                <ProtectedLayout />
+              </UserDataProvider>
+            }
+          >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/transactions" element={<Transactions />} />

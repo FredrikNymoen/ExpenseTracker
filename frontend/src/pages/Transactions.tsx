@@ -52,7 +52,7 @@ export default function Transactions() {
     );
   }
 
-  if (!user || !stats) return null;
+  if (!user) return null;
 
   return (
     <Box minH="100vh">
@@ -141,41 +141,51 @@ export default function Transactions() {
             {/* Overview Tab */}
             <Tabs.Content value="overview">
               <VStack gap={6} align="stretch">
-                {/* Charts */}
-                <SimpleGrid columns={{ base: 1, lg: 2 }} gap={6}>
-                  <TransactionChart
-                    title="Daily Activity (Last 30 Days)"
-                    data={stats.dailyData}
-                    dataKey="date"
-                    stats={stats}
-                  />
-                  <TransactionChart
-                    title="Monthly Overview"
-                    data={stats.monthlyData}
-                    dataKey="month"
-                    stats={stats}
-                  />
-                </SimpleGrid>
-
-                {/* Categories, Risk Analysis and Recent Transactions */}
-                <SimpleGrid columns={{ base: 1, lg: 3 }} gap={6}>
-                  <GridItem colSpan={{ base: 1, lg: 1 }}>
-                    <VStack gap={6}>
-                      <TransactionCategories stats={stats} />
-                      <SimpleRiskAnalysis
-                        user={user}
-                        transactions={transactions}
+                {stats ? (
+                  <>
+                    {/* Charts */}
+                    <SimpleGrid columns={{ base: 1, lg: 2 }} gap={6}>
+                      <TransactionChart
+                        title="Daily Activity (Last 30 Days)"
+                        data={stats.dailyData}
+                        dataKey="date"
+                        stats={stats}
                       />
-                    </VStack>
-                  </GridItem>
-                  <GridItem colSpan={{ base: 1, lg: 2 }}>
-                    <RecentTransactionsCard
-                      transactions={transactions.slice(0, 6)}
-                      formatCurrency={formatCurrency}
-                      formatDate={formatDate}
-                    />
-                  </GridItem>
-                </SimpleGrid>
+                      <TransactionChart
+                        title="Monthly Overview"
+                        data={stats.monthlyData}
+                        dataKey="month"
+                        stats={stats}
+                      />
+                    </SimpleGrid>
+
+                    {/* Categories, Risk Analysis and Recent Transactions */}
+                    <SimpleGrid columns={{ base: 1, lg: 3 }} gap={6}>
+                      <GridItem colSpan={{ base: 1, lg: 1 }}>
+                        <VStack gap={6}>
+                          <TransactionCategories stats={stats} />
+                          <SimpleRiskAnalysis
+                            user={user}
+                            transactions={transactions}
+                          />
+                        </VStack>
+                      </GridItem>
+                      <GridItem colSpan={{ base: 1, lg: 2 }}>
+                        <RecentTransactionsCard
+                          transactions={transactions.slice(0, 6)}
+                          formatCurrency={formatCurrency}
+                          formatDate={formatDate}
+                        />
+                      </GridItem>
+                    </SimpleGrid>
+                  </>
+                ) : (
+                  <Box textAlign="center" py={8}>
+                    <Text color="gray.500">
+                      Loading transaction statistics...
+                    </Text>
+                  </Box>
+                )}
               </VStack>
             </Tabs.Content>
 
