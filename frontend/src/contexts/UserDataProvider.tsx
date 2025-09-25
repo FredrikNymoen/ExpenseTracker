@@ -10,8 +10,11 @@ interface UserDataContextType {
   allUsers: User[];
   loading: boolean;
   error: string | null;
+  lastUpdated: Date | null;
+  isRefreshing: boolean;
   refetchTransactions: () => Promise<void>;
   refetchUser: () => Promise<void>;
+  refreshAll: () => Promise<void>;
   updateUserLocally: (updates: Partial<User>) => void;
 }
 
@@ -29,6 +32,8 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [hasInitialized, setHasInitialized] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Initial data fetch
   useEffect(() => {
@@ -61,6 +66,7 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({
         setAllUsers(usersData);
         setError(null);
         setHasInitialized(true);
+        setLastUpdated(new Date());
       } catch (e: any) {
         setError(e?.message || "Could not fetch user data");
       } finally {
@@ -91,6 +97,7 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({
 
       setTransactions(transactionsData);
       setUser(userData); // Update user to get new balance
+      setLastUpdated(new Date());
     } catch (e: any) {
       console.error("Failed to refetch transactions:", e);
     }
@@ -109,6 +116,35 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // Refresh all data (for pull-to-refresh)
+  const refreshAll = async () => {
+    if (!auth.user?.access_token) return;
+
+    try {
+      setIsRefreshing(true);
+
+      // Fetch user data
+      const defaultName = auth.user?.profile.name || "Unnamed user";
+      const me = await ensureMe(auth.user.access_token, defaultName);
+      setUser(me);
+
+      // Fetch transactions and all users in parallel
+      const [transactionsData, usersData] = await Promise.all([
+        getUserTransactions(me.id),
+        getAllUsers(),
+      ]);
+
+      setTransactions(transactionsData);
+      setAllUsers(usersData);
+      setError(null);
+      setLastUpdated(new Date());
+    } catch (e: any) {
+      setError(e?.message || "Could not refresh data");
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
   // Update user locally (for optimistic updates)
   const updateUserLocally = (updates: Partial<User>) => {
     if (user) {
@@ -124,8 +160,11 @@ export const UserDataProvider: React.FC<{ children: ReactNode }> = ({
         allUsers,
         loading,
         error,
+        lastUpdated,
+        isRefreshing,
         refetchTransactions,
         refetchUser,
+        refreshAll,
         updateUserLocally,
       }}
     >

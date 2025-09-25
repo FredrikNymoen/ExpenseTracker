@@ -9,6 +9,8 @@ import {
 import LoadingScreen from "@/components/LoadingScreen";
 import { useDashboardData } from "../hooks/dashboard/useDashboardData";
 import { useTransactionCalculations } from "../hooks/dashboard/useTransactionCalculations";
+import { usePullToRefresh } from "../hooks/usePullToRefresh";
+import { PullToRefreshIndicator } from "../components/ui/PullToRefreshIndicator";
 import { formatCurrency, formatDate } from "../utils/formatters";
 import MetricCard from "../components/dashboard/MetricCard";
 import QuickActions from "../components/dashboard/QuickActions";
@@ -24,6 +26,7 @@ import {
 
 const Dashboard = () => {
   const { loading, user, error, transactions } = useDashboardData();
+  const { isPulling, pullDistance, isRefreshing } = usePullToRefresh();
   const {
     totalSent,
     totalReceived,
@@ -59,7 +62,13 @@ const Dashboard = () => {
   if (!user) return null;
 
   return (
-    <Box minH="100vh">
+    <Box minH="100vh" position="relative">
+      <PullToRefreshIndicator
+        isPulling={isPulling}
+        pullDistance={pullDistance}
+        isRefreshing={isRefreshing}
+      />
+
       <DashboardHeader user={user} />
 
       <Container maxW="container.xl" py={8}>

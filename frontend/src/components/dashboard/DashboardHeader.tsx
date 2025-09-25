@@ -1,11 +1,14 @@
 import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import type { User } from "../../lib/api";
+import { useUserData } from "../../contexts/UserDataProvider";
 
 interface DashboardHeaderProps {
   user: User;
 }
 
 export default function DashboardHeader({ user }: DashboardHeaderProps) {
+  const { lastUpdated } = useUserData();
+
   return (
     <Box bg="white" borderBottom="1px" borderColor="gray.200" shadow="sm">
       <Container maxW="container.xl" py={6}>
@@ -26,7 +29,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
               color="gray.900"
               textAlign="right"
             >
-              {new Date().toLocaleString("nb-NO")}
+              {lastUpdated ? lastUpdated.toLocaleString("nb-NO") : "Loading..."}
             </Text>
           </VStack>
         </Flex>

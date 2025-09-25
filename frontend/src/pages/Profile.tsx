@@ -35,7 +35,9 @@ export default function Profile() {
 
   // Form states
   const [name, setName] = useState(user?.name || "");
-  const [img, setImg] = useState(user?.img || "");
+  const [img, setImg] = useState(
+    user?.img && user.img.trim() !== "" ? user.img : ""
+  );
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
 
@@ -274,9 +276,7 @@ export default function Profile() {
           <Heading size="xl" color="accent" mb={2}>
             Profile Settings
           </Heading>
-          <Text color="gray.800">
-            Update your profile information and risk settings
-          </Text>
+          <Text color="gray.800">Update your profile information</Text>
         </Box>
 
         {user && (
@@ -327,9 +327,12 @@ export default function Profile() {
                         Full Name
                       </Text>
                       <Input
+                        id="profile-name"
+                        name="profileName"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Enter your full name"
+                        autoComplete="name"
                       />
                       <Text fontSize="xs" color="gray.500" mt={1}>
                         First and last names will be automatically capitalized
@@ -342,10 +345,13 @@ export default function Profile() {
                       </Text>
 
                       {/* Image Preview */}
-                      {(img || imagePreview) && (
+                      {(imagePreview || (img && img.trim() !== "")) && (
                         <Flex justify="center" mb={4}>
                           <Image
-                            src={imagePreview || img}
+                            src={
+                              imagePreview ||
+                              (img && img.trim() !== "" ? img : undefined)
+                            }
                             boxSize="120px"
                             objectFit="cover"
                             borderRadius="full"
@@ -362,12 +368,15 @@ export default function Profile() {
                             Option 1: Image URL
                           </Text>
                           <Input
+                            id="profile-image-url"
+                            name="profileImageUrl"
                             value={img.startsWith("data:") ? "" : img}
                             onChange={(e) => {
                               setImg(e.target.value);
                               setImagePreview(null);
                             }}
                             placeholder="https://example.com/image.jpg"
+                            autoComplete="url"
                           />
                         </Box>
 
@@ -377,6 +386,8 @@ export default function Profile() {
                             Option 2: Upload from device
                           </Text>
                           <Input
+                            id="profile-image-file"
+                            name="profileImageFile"
                             type="file"
                             accept="image/*"
                             onChange={handleImageUpload}
@@ -428,6 +439,8 @@ export default function Profile() {
                       </Text>
                       <Group attached>
                         <Input
+                          id="new-password"
+                          name="newPassword"
                           type={showNewPassword ? "text" : "password"}
                           value={newPassword}
                           onChange={(e) =>
@@ -439,6 +452,7 @@ export default function Profile() {
                               ? "red.300"
                               : "gray.300"
                           }
+                          autoComplete="new-password"
                         />
                         <IconButton
                           aria-label={
@@ -475,6 +489,8 @@ export default function Profile() {
                       </Text>
                       <Group attached>
                         <Input
+                          id="confirm-password"
+                          name="confirmPassword"
                           type={showConfirmPassword ? "text" : "password"}
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -485,6 +501,7 @@ export default function Profile() {
                               ? "red.300"
                               : "gray.300"
                           }
+                          autoComplete="new-password"
                         />
                         <IconButton
                           aria-label={
@@ -604,10 +621,13 @@ export default function Profile() {
                           Type "delete" to confirm:
                         </Text>
                         <Input
+                          id="delete-confirmation"
+                          name="deleteConfirmation"
                           value={deleteConfirmText}
                           onChange={(e) => setDeleteConfirmText(e.target.value)}
                           placeholder="delete"
                           borderColor="red.300"
+                          autoComplete="off"
                         />
                       </Box>
 

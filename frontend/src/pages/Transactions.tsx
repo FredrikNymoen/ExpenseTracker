@@ -14,7 +14,9 @@ import {
 import { useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import { useTransactionsData } from "../hooks/transactions/useTransactionsData";
-import CompactOverview from "../components/transactions/CompactOverview";
+import { usePullToRefresh } from "../hooks/usePullToRefresh";
+import { PullToRefreshIndicator } from "../components/ui/PullToRefreshIndicator";
+
 import TransactionChart from "../components/transactions/TransactionChart";
 import TransactionCategories from "../components/transactions/TransactionCategories";
 import SendMoneyForm from "../components/transactions/SendMoneyForm";
@@ -25,6 +27,7 @@ import { formatCurrency, formatDate } from "../utils/formatters";
 export default function Transactions() {
   const { loading, error, transactions, allUsers, stats, user, refetch } =
     useTransactionsData();
+  const { isPulling, pullDistance, isRefreshing } = usePullToRefresh();
   const [activeTab, setActiveTab] = useState("send-money");
 
   if (loading) return <LoadingScreen />;
@@ -55,7 +58,13 @@ export default function Transactions() {
   if (!user) return null;
 
   return (
-    <Box minH="100vh">
+    <Box minH="100vh" position="relative">
+      <PullToRefreshIndicator
+        isPulling={isPulling}
+        pullDistance={pullDistance}
+        isRefreshing={isRefreshing}
+      />
+
       <Container maxW="container.xl" py={8}>
         <VStack gap={8} align="stretch">
           {/* Header */}

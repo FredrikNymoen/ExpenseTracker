@@ -148,6 +148,8 @@ export default function SendMoneyForm({
                 )}
               </Text>
               <Input
+                id="recipient-search"
+                name="recipientSearch"
                 placeholder={
                   selectedUser ? selectedUser.name : "Search by name..."
                 }
@@ -157,6 +159,7 @@ export default function SendMoneyForm({
                 borderColor={selectedUser ? "green.300" : "gray.300"}
                 disabled={!!selectedUser}
                 cursor={selectedUser ? "not-allowed" : "text"}
+                autoComplete="off"
               />
               {!selectedUser && (
                 <Text fontSize="xs" color="gray.500" mt={1}>
@@ -191,7 +194,14 @@ export default function SendMoneyForm({
                       }}
                     >
                       <Avatar.Root size="sm">
-                        <Avatar.Image src={user.img} alt={user.name} />
+                        <Avatar.Image
+                          src={
+                            user.img && user.img.trim() !== ""
+                              ? user.img
+                              : undefined
+                          }
+                          alt={user.name}
+                        />
                         <Avatar.Fallback name={user.name} />
                       </Avatar.Root>
                       <VStack align="start" gap={0} flex={1}>
@@ -247,12 +257,17 @@ export default function SendMoneyForm({
                 Amount
               </Text>
               <Input
+                id="transaction-amount"
+                name="transactionAmount"
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 bg="gray.50"
                 borderColor="gray.300"
+                autoComplete="off"
+                min="0"
+                step="0.01"
               />
               <Text fontSize="xs" color="gray.500" mt={1}>
                 Available balance: {formatCurrency(currentUser.balance)}
@@ -265,6 +280,8 @@ export default function SendMoneyForm({
                 Category
               </Text>
               <select
+                id="transaction-category"
+                name="transactionCategory"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 style={{
@@ -290,12 +307,15 @@ export default function SendMoneyForm({
                 Description (optional)
               </Text>
               <Textarea
+                id="transaction-description"
+                name="transactionDescription"
                 placeholder="What's this for?"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 bg="gray.50"
                 borderColor="gray.300"
                 rows={3}
+                autoComplete="off"
               />
             </Box>
 

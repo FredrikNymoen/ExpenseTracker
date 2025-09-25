@@ -28,8 +28,12 @@ export default function TransactionItem({
           <Avatar.Image
             src={
               transaction.role === "sent"
-                ? transaction.to?.img
-                : transaction.from?.img
+                ? transaction.to?.img && transaction.to.img.trim() !== ""
+                  ? transaction.to.img
+                  : undefined
+                : transaction.from?.img && transaction.from.img.trim() !== ""
+                ? transaction.from.img
+                : undefined
             }
             alt="Profile image"
           />
