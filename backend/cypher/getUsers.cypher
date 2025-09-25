@@ -6,6 +6,7 @@ RETURN u {
   .balance,
   .riskScore,
   .img,
+  .role,
   createdAt: toString(u.createdAt)
 } AS user
 ORDER BY u.createdAt DESC

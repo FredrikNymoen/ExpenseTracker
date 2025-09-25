@@ -45,6 +45,7 @@ export default function SendMoneyForm({
       .filter(
         (user) =>
           user.id !== currentUser.id &&
+          user.role !== "admin" &&
           user.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
       .slice(0, 5); // Limit to 5 results

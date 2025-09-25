@@ -5,6 +5,7 @@ export interface User {
   balance: number;
   riskScore: string;
   img: string;
+  role?: string;
 }
 
 // Transaction interface based on your backend structure

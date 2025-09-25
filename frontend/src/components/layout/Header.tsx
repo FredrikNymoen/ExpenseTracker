@@ -171,7 +171,7 @@ export default function Header() {
                 bg="linear-gradient(90deg, #2F855A, #38A169)"
                 color="white"
                 fontWeight="bold"
-                fontSize={{ base: "28px", md: "32px" }}
+                fontSize={{ base: "28px", md: "31px" }}
                 border="2px solid #388E3C"
                 borderRadius="full"
                 p="5"
