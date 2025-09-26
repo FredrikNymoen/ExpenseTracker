@@ -68,7 +68,7 @@ export default function TransactionItem({
             <Text
               fontSize="sm"
               color="gray.600"
-              lineClamp={{ base: 2, md: 1 }}
+              lineClamp={transaction.tx.description.length > 200 ? 4 : undefined}
               wordBreak="break-word"
             >
               {transaction.tx.description}

@@ -12,7 +12,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Amz-Date", "X-Api-Key", "X-Amz-Security-Token", "x-default-name"]
 }));
-app.use(express.json({ limit: "50mb" })); // Allow large images
+app.use(express.json({ limit: "6mb" })); // API Gateway max is 10MB, stay under that
 // app.use(express.urlencoded({ limit: "50mb", extended: true })); // Disabled for serverless compatibility
 
 // health

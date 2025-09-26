@@ -141,7 +141,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-                  "S3Key": "serverless/expensetracker-backend-api/prod/1758906128643-2025-09-26T17:02:08.643Z/expensetracker-backend-api.zip"
+                  "S3Key": "serverless/expensetracker-backend-api/prod/1758907102720-2025-09-26T17:18:22.720Z/expensetracker-backend-api.zip"
                 },
                 "Handler": "backend/handler.lambdaHandler",
                 "Runtime": "nodejs18.x",
@@ -168,14 +168,14 @@
                 "ApiLogGroup"
               ]
             },
-            "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8": {
+            "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "ApiLambdaFunction"
                 },
-                "CodeSha256": "hrTh0aZpix4CMimA3E5kN+/zolRIBPkZ0iCnRlnO6Kw="
+                "CodeSha256": "nEzC/QpY6agBiqvlV/sxebKZYYYSEeYOCHK+SbFloaA="
               }
             },
             "HttpApi": {
@@ -284,7 +284,7 @@
             "ApiLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8"
+                "Ref": "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0"
               },
               "Export": {
                 "Name": "sls-expensetracker-backend-api-prod-ApiLambdaFunctionQualifiedArn"
@@ -347,7 +347,7 @@
           "timeout": 15,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8"
+          "versionLogicalId": "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0"
         }
       },
       "package": {
@@ -364,7 +364,7 @@
         "artifactsS3KeyDirname": "serverless/expensetracker-backend-api/prod/code-artifacts",
         "deploymentBucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
         "artifact": "C:\\Users\\fredr\\Documents\\webDevBootcamp\\ExpenseTracker\\.serverless\\expensetracker-backend-api.zip",
-        "artifactDirectoryName": "serverless/expensetracker-backend-api/prod/1758906128643-2025-09-26T17:02:08.643Z"
+        "artifactDirectoryName": "serverless/expensetracker-backend-api/prod/1758907102720-2025-09-26T17:18:22.720Z"
       }
     },
     "provider": {
@@ -502,7 +502,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-                "S3Key": "serverless/expensetracker-backend-api/prod/1758906128643-2025-09-26T17:02:08.643Z/expensetracker-backend-api.zip"
+                "S3Key": "serverless/expensetracker-backend-api/prod/1758907102720-2025-09-26T17:18:22.720Z/expensetracker-backend-api.zip"
               },
               "Handler": "backend/handler.lambdaHandler",
               "Runtime": "nodejs18.x",
@@ -529,14 +529,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8": {
+          "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "hrTh0aZpix4CMimA3E5kN+/zolRIBPkZ0iCnRlnO6Kw="
+              "CodeSha256": "nEzC/QpY6agBiqvlV/sxebKZYYYSEeYOCHK+SbFloaA="
             }
           },
           "HttpApi": {
@@ -645,7 +645,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8"
+              "Ref": "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0"
             },
             "Export": {
               "Name": "sls-expensetracker-backend-api-prod-ApiLambdaFunctionQualifiedArn"
@@ -711,12 +711,12 @@
     "serviceProviderAwsCfStackName": "expensetracker-backend-api-prod",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:eu-north-1:243284855102:stack/expensetracker-backend-api-prod/8ac76c00-9a7d-11f0-bc67-0a48bd749a9d",
     "serviceProviderAwsCfStackCreated": "2025-09-26T02:07:23.942Z",
-    "serviceProviderAwsCfStackUpdated": "2025-09-26T16:54:44.659Z",
+    "serviceProviderAwsCfStackUpdated": "2025-09-26T17:02:10.956Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "ApiLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:eu-north-1:243284855102:function:expensetracker-backend-api:19",
+        "OutputValue": "arn:aws:lambda:eu-north-1:243284855102:function:expensetracker-backend-api:20",
         "Description": "Current Lambda function version",
         "ExportName": "sls-expensetracker-backend-api-prod-ApiLambdaFunctionQualifiedArn"
       },
@@ -840,7 +840,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-              "S3Key": "serverless/expensetracker-backend-api/prod/1758906128643-2025-09-26T17:02:08.643Z/expensetracker-backend-api.zip"
+              "S3Key": "serverless/expensetracker-backend-api/prod/1758907102720-2025-09-26T17:18:22.720Z/expensetracker-backend-api.zip"
             },
             "Handler": "backend/handler.lambdaHandler",
             "Runtime": "nodejs18.x",
@@ -867,14 +867,14 @@
             "ApiLogGroup"
           ]
         },
-        "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8": {
+        "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "ApiLambdaFunction"
             },
-            "CodeSha256": "hrTh0aZpix4CMimA3E5kN+/zolRIBPkZ0iCnRlnO6Kw="
+            "CodeSha256": "nEzC/QpY6agBiqvlV/sxebKZYYYSEeYOCHK+SbFloaA="
           }
         },
         "HttpApi": {
@@ -983,7 +983,7 @@
         "ApiLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "ApiLambdaVersionSDGLVFIUZZ6tKYUWpoERMjH7lhnZesxcGYCXSHaCw8"
+            "Ref": "ApiLambdaVersion4CBBGT91vQ2UYMotUvBjjfoJbP8yvsgjqVfsGO4v0"
           },
           "Export": {
             "Name": "sls-expensetracker-backend-api-prod-ApiLambdaFunctionQualifiedArn"

@@ -14,6 +14,54 @@ export default function ProfileImageSection({
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
 
+  const compressImage = (file: File, maxSizeMB: number = 5): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new window.Image();
+
+      img.onload = () => {
+        // Calculate dimensions to fit within reasonable size
+        const maxWidth = 800;
+        const maxHeight = 800;
+        let { width, height } = img;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw and compress
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        // Start with high quality and reduce if needed
+        let quality = 0.8;
+        let dataUrl = canvas.toDataURL('image/jpeg', quality);
+
+        // Reduce quality until under size limit
+        while (dataUrl.length > maxSizeMB * 1024 * 1024 && quality > 0.1) {
+          quality -= 0.1;
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+
+        resolve(dataUrl);
+      };
+
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -34,29 +82,23 @@ export default function ProfileImageSection({
     setIsUploadingImage(true);
 
     try {
-      // Convert to base64
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const base64String = e.target?.result as string;
-        onImageChange(base64String);
-        setImagePreview(base64String);
-        setIsUploadingImage(false);
-      };
-      reader.onerror = () => {
-        toaster.create({
-          title: "Upload Error",
-          description: "Failed to process image file",
-          type: "error",
-          duration: 3000,
-        });
-        setIsUploadingImage(false);
-      };
-      reader.readAsDataURL(file);
+      // Compress image before uploading
+      const compressedBase64 = await compressImage(file, 5); // 5MB max
+      onImageChange(compressedBase64);
+      setImagePreview(compressedBase64);
+      setIsUploadingImage(false);
+
+      toaster.create({
+        title: "Image Uploaded",
+        description: "Profile image updated successfully",
+        type: "success",
+        duration: 3000,
+      });
     } catch (error) {
       console.error("Image upload error:", error);
       toaster.create({
         title: "Upload Error",
-        description: "Failed to upload image",
+        description: "Failed to process image. Please try a smaller image.",
         type: "error",
         duration: 3000,
       });
@@ -132,7 +174,7 @@ export default function ProfileImageSection({
             }}
           />
           <Text fontSize="xs" color="gray.500" mt={1}>
-            All image formats supported • No size limit
+            All image formats supported • Images will be compressed automatically
           </Text>
         </Box>
       </VStack>
