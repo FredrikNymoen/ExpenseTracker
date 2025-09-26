@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import type { Transaction } from "../../lib/api";
 import { useUserData } from "../../contexts/UserDataProvider";
 
 export interface TransactionStats {

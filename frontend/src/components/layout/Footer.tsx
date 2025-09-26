@@ -1,5 +1,5 @@
 import { Box, Text, HStack, VStack, Link, Icon } from "@chakra-ui/react";
-import { FiGithub, FiMail, FiHeart, FiLinkedin } from "react-icons/fi";
+import { FiGithub, FiLinkedin } from "react-icons/fi";
 
 export default function Footer() {
   return (
