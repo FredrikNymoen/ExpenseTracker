@@ -7,7 +7,7 @@ import { claimBonus, checkBonusAvailability } from "../../lib/api";
 
 export default function ClaimBonusCard() {
   const auth = useAuth();
-  const { user, refreshAll } = useUserData();
+  const { refreshAll } = useUserData();
   const [isClaimingBonus, setIsClaimingBonus] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -49,7 +49,8 @@ export default function ClaimBonusCard() {
       await refreshAll(); // Refresh hele dashboardet inkludert transaksjoner
       setIsAvailable(false); // Skjul kortet etter vellykket claim
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to claim bonus";
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to claim bonus";
       setError(errorMessage);
 
       if (errorMessage.includes("Wait 24 hours")) {
@@ -76,7 +77,7 @@ export default function ClaimBonusCard() {
       _hover={{
         transform: "translateY(-2px)",
         boxShadow: "2xl",
-        transition: "all 0.3s ease"
+        transition: "all 0.3s ease",
       }}
     >
       {/* Animated background elements */}
@@ -108,7 +109,11 @@ export default function ClaimBonusCard() {
               🎁 Daily Bonus Available!
             </Text>
             <Text fontSize="lg" opacity={0.9}>
-              Claim your <Text as="span" fontWeight="bold" color="yellow.200">100kr</Text> bonus now!
+              Claim your{" "}
+              <Text as="span" fontWeight="bold" color="yellow.200">
+                100kr
+              </Text>{" "}
+              bonus now!
             </Text>
           </Box>
 
@@ -144,10 +149,10 @@ export default function ClaimBonusCard() {
           _hover={{
             bg: "yellow.300",
             transform: "scale(1.05)",
-            transition: "all 0.2s ease"
+            transition: "all 0.2s ease",
           }}
           _active={{
-            transform: "scale(0.98)"
+            transform: "scale(0.98)",
           }}
         >
           {isClaimingBonus ? "Claiming..." : "🚀 Claim 100kr Bonus"}

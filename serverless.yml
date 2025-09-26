@@ -8,12 +8,14 @@ provider:
   memorySize: 512
   timeout: 15
   environment:
-    NEO4J_URI: ${env:NEO4J_URI}
-    NEO4J_USERNAME: ${env:NEO4J_USERNAME}
-    NEO4J_PASSWORD: ${env:NEO4J_PASSWORD}
+    NEO4J_URI: neo4j+s://fcba4b76.databases.neo4j.io
+    NEO4J_USERNAME: neo4j
+    NEO4J_PASSWORD: vzM0DzA1Rc09Vd-9iedQ1c7A3SclotUfIJujMsvZI3U
+    COGNITO_REGION: eu-north-1
+    COGNITO_USER_POOL_ID: eu-north-1_HBZ87LdIS
   httpApi:
     cors: true
-  stage: dev
+  stage: prod
 
 functions:
   api:

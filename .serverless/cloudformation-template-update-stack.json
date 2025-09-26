@@ -34,7 +34,7 @@
                 "-",
                 [
                   "expensetracker-backend-api",
-                  "dev",
+                  "prod",
                   "lambda"
                 ]
               ]
@@ -76,7 +76,7 @@
             "-",
             [
               "expensetracker-backend-api",
-              "dev",
+              "prod",
               {
                 "Ref": "AWS::Region"
               },
@@ -91,7 +91,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
-          "S3Key": "serverless/expensetracker-backend-api/dev/1758200200947-2025-09-18T12:56:40.947Z/expensetracker-backend-api.zip"
+          "S3Key": "serverless/expensetracker-backend-api/prod/1758852441588-2025-09-26T02:07:21.588Z/expensetracker-backend-api.zip"
         },
         "Handler": "backend/handler.lambdaHandler",
         "Runtime": "nodejs18.x",
@@ -102,7 +102,9 @@
           "Variables": {
             "NEO4J_URI": "neo4j+s://fcba4b76.databases.neo4j.io",
             "NEO4J_USERNAME": "neo4j",
-            "NEO4J_PASSWORD": "vzM0DzA1Rc09Vd-9iedQ1c7A3SclotUfIJujMsvZI3U"
+            "NEO4J_PASSWORD": "vzM0DzA1Rc09Vd-9iedQ1c7A3SclotUfIJujMsvZI3U",
+            "COGNITO_REGION": "eu-north-1",
+            "COGNITO_USER_POOL_ID": "eu-north-1_HBZ87LdIS"
           }
         },
         "Role": {
@@ -116,20 +118,20 @@
         "ApiLogGroup"
       ]
     },
-    "ApiLambdaVersionHZkTgJJBDG9uqLlOFHjsriqP906vYdrsvF3yCBK2po": {
+    "ApiLambdaVersionA3cRmqX4dbiSvAwiZwwOm0QBzyDKopkgNF26quJ67yU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ApiLambdaFunction"
         },
-        "CodeSha256": "aL9GMZtVXa2W7MFI42aLaG4ZagEBc6au4i2brR2rotM="
+        "CodeSha256": "Z+3FEFYO6noi7I2CDPQuTFbH8aM3Bm/UnYvPFY+9Pdo="
       }
     },
     "HttpApi": {
       "Type": "AWS::ApiGatewayV2::Api",
       "Properties": {
-        "Name": "dev-expensetracker-backend-api",
+        "Name": "prod-expensetracker-backend-api",
         "ProtocolType": "HTTP",
         "CorsConfiguration": {
           "AllowHeaders": [
@@ -249,16 +251,16 @@
     "ServerlessDeploymentBucketName": {
       "Value": "serverless-framework-deployments-eu-north-1-6e80fa5d-229e",
       "Export": {
-        "Name": "sls-expensetracker-backend-api-dev-ServerlessDeploymentBucketName"
+        "Name": "sls-expensetracker-backend-api-prod-ServerlessDeploymentBucketName"
       }
     },
     "ApiLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ApiLambdaVersionHZkTgJJBDG9uqLlOFHjsriqP906vYdrsvF3yCBK2po"
+        "Ref": "ApiLambdaVersionA3cRmqX4dbiSvAwiZwwOm0QBzyDKopkgNF26quJ67yU"
       },
       "Export": {
-        "Name": "sls-expensetracker-backend-api-dev-ApiLambdaFunctionQualifiedArn"
+        "Name": "sls-expensetracker-backend-api-prod-ApiLambdaFunctionQualifiedArn"
       }
     },
     "HttpApiId": {
@@ -267,7 +269,7 @@
         "Ref": "HttpApi"
       },
       "Export": {
-        "Name": "sls-expensetracker-backend-api-dev-HttpApiId"
+        "Name": "sls-expensetracker-backend-api-prod-HttpApiId"
       }
     },
     "HttpApiUrl": {
@@ -292,7 +294,7 @@
         ]
       },
       "Export": {
-        "Name": "sls-expensetracker-backend-api-dev-HttpApiUrl"
+        "Name": "sls-expensetracker-backend-api-prod-HttpApiUrl"
       }
     }
   }

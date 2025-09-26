@@ -24,14 +24,14 @@ export default function TransactionChart({
   );
 
   // Calculate dynamic width based on data length for better spacing
-  const chartWidth = Math.max(800, data.length * 80);
-  const pointSpacing = Math.max(60, (chartWidth - 120) / Math.max(data.length - 1, 1));
+  // const chartWidth = Math.max(800, data.length * 80);
 
   useEffect(() => {
     if (scrollContainerRef.current) {
       setTimeout(() => {
         if (scrollContainerRef.current) {
-          scrollContainerRef.current.scrollLeft = scrollContainerRef.current.scrollWidth;
+          scrollContainerRef.current.scrollLeft =
+            scrollContainerRef.current.scrollWidth;
         }
       }, 100);
     }
