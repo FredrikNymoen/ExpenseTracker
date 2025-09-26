@@ -1,6 +1,6 @@
 # ExpenseTracker
 
-A modern expense tracking application built with React, Node.js, Express and Neo4j that allows users to manage their personal finances in a secure and user-friendly way.
+A modern expense tracking application built with React, Node.js, Express and Neo4j that allows users to manage their personal finances in a secure and user-friendly way. Hosted on AWS.
 
 🌐 **Live Demo**: [https://d2m47o9qwrddqu.cloudfront.net/](https://d2m47o9qwrddqu.cloudfront.net)
 
