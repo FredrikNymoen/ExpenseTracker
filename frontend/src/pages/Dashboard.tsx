@@ -16,7 +16,8 @@ import MetricCard from "../components/dashboard/MetricCard";
 import QuickActions from "../components/dashboard/QuickActions";
 import AccountSummary from "../components/dashboard/AccountSummary";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
-import RecentTransactionsCard from "../components/dashboard/RecentTransactionsCard";
+import RecentTransactionsCard from "../components/transactions/RecentTransactionsCard";
+import ClaimBonusCard from "../components/dashboard/ClaimBonusCard";
 import {
   WalletIcon,
   TrendingUpIcon,
@@ -73,6 +74,9 @@ const Dashboard = () => {
 
       <Container maxW="container.xl" py={8}>
         <VStack gap={8} align="stretch">
+          {/* Daily Bonus - Highlighted at top */}
+          <ClaimBonusCard />
+
           {/* Key Metrics */}
           <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={6}>
             <MetricCard

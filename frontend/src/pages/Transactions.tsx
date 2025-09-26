@@ -21,7 +21,7 @@ import TransactionChart from "../components/transactions/TransactionChart";
 import TransactionCategories from "../components/transactions/TransactionCategories";
 import SendMoneyForm from "../components/transactions/SendMoneyForm";
 import SimpleRiskAnalysis from "../components/transactions/SimpleRiskAnalysis";
-import RecentTransactionsCard from "../components/dashboard/RecentTransactionsCard";
+import RecentTransactionsCard from "../components/transactions/RecentTransactionsCard";
 import { formatCurrency, formatDate } from "../utils/formatters";
 
 export default function Transactions() {

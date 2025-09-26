@@ -42,7 +42,7 @@ export interface CreateTransactionResponse {
 }
 
 async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const res = await fetch(`http://localhost:5000/api${path}`, init);
+const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}${path}`, init);
   const ct = res.headers.get("content-type") || "";
   const text = await res.text();
   if (!ct.includes("application/json")) {
@@ -151,4 +151,47 @@ export async function recalculateRiskScore(
       },
     }
   );
+}
+
+export async function claimBonus(
+  token: string
+): Promise<{ message: string; user: User; transaction: any; amount: number }> {
+  const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/me/claim-bonus`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  const ct = res.headers.get("content-type") || "";
+  const text = await res.text();
+
+  if (!ct.includes("application/json")) {
+    throw new Error(`Expected JSON, got ${ct}. Body: ${text.slice(0, 120)}`);
+  }
+
+  const json = JSON.parse(text);
+
+  if (!res.ok) {
+    const msg = json?.error || `${res.status} ${res.statusText}`;
+    throw new Error(msg);
+  }
+
+  // Sjekk for success field i response (for cooldown-håndtering)
+  if (json.success === false) {
+    throw new Error(json.error || "Failed to claim bonus");
+  }
+
+  return json;
+}
+
+export async function checkBonusAvailability(
+  token: string
+): Promise<{ available: boolean; message: string }> {
+  return fetchJson<{ available: boolean; message: string }>("/me/bonus-availability", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }

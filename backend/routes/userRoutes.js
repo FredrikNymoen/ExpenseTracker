@@ -5,8 +5,7 @@ import {
   getUser,
   deleteUser,
   getUserByCognitoSub,
-  patchUser,
-} from "../controllers/userController.js";
+} from "../controllers/userCrudController.js";
 import { auth } from "../middleware/auth.js";
 
 const router = Router();

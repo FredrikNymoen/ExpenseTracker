@@ -4,9 +4,13 @@ import {
   ensureMe,
   patchUser,
   deleteMe,
-  changePassword,
-  recalculateRiskScore,
-} from "../controllers/userController.js";
+} from "../controllers/userProfileController.js";
+import { changePassword } from "../controllers/userPasswordController.js";
+import { recalculateRiskScore } from "../controllers/userRiskController.js";
+import {
+  claimBonus,
+  checkBonusAvailability,
+} from "../controllers/userBonusController.js";
 
 const router = Router();
 
@@ -21,6 +25,12 @@ router.post("/change-password", auth, changePassword);
 
 // POST /api/me/recalculate-risk -> recalculate user's risk score based on activity
 router.post("/recalculate-risk", auth, recalculateRiskScore);
+
+// GET /api/me/bonus-availability -> check if bonus can be claimed
+router.get("/bonus-availability", auth, checkBonusAvailability);
+
+// POST /api/me/claim-bonus -> claim 100kr bonus every 2 days from admin user
+router.post("/claim-bonus", auth, claimBonus);
 
 // GET /api/me -> get current user's profile
 router.get("/", auth, ensureMe);

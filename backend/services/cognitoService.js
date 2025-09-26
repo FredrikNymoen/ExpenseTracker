@@ -7,10 +7,10 @@ import {
 
 // Initialize Cognito client
 const cognitoClient = new CognitoIdentityProviderClient({
-  region: process.env.COGNITO_REGION || "eu-north-1",
+  region: process.env.COGNITO_REGION,
 });
 
-const USER_POOL_ID = process.env.COGNITO_USER_POOL_ID || "eu-north-1_HBZ87LdIS";
+const USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 
 /**
  * Update user attributes in Cognito

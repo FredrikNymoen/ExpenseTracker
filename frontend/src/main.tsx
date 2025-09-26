@@ -1,18 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import { Provider } from "./components/ui/provider.tsx";
+import { Provider } from "./components/ui/Provider";
 import { AuthProvider } from "react-oidc-context";
 
 const cognitoAuthConfig = {
-  //Elling
-  //authority: "https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_bqAc6h9cJ",
-  //client_id: "5kdoj9f3c6hsnp6gdnevs0fm4k",
-
-  //Fredrik
-  authority:
-    "https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_HBZ87LdIS",
-  client_id: "jsj2h93siq9ksbetblkeh9f0s",
+  authority: import.meta.env.VITE_COGNITO_AUTHORITY,
+  client_id: import.meta.env.VITE_COGNITO_CLIENT_ID,
 
   redirect_uri: window.location.origin + "/callback",
   response_type: "code",

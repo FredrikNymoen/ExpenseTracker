@@ -6,7 +6,7 @@ import Transactions from "./pages/Transactions";
 import ProtectedLayout from "./components/layout/ProtectedLayout";
 import { ProtectedRoute } from "./pages/ProtectedRoute";
 import Callback from "./pages/Callback";
-import { Toaster } from "./components/ui/toaster";
+import { Toaster } from "./components/ui/Toaster";
 import { UserDataProvider } from "./contexts/UserDataProvider";
 
 export default function App() {

@@ -1,4 +1,4 @@
-import { getUserByCognitoSub } from "@/lib/api";
+import { ensureMe } from "@/lib/api";
 import {
   Button,
   HStack,
@@ -30,11 +30,12 @@ export default function Header() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (auth.isAuthenticated && auth.user?.profile.sub) {
+      if (auth.isAuthenticated && auth.user?.access_token) {
         try {
-          const user = await getUserByCognitoSub(auth.user.profile.sub);
+          const defaultName = auth.user?.profile?.name || "User";
+          const user = await ensureMe(auth.user.access_token, defaultName);
           setImg(user.img && user.img.trim() !== "" ? user.img : undefined);
-          setName(user.name || "User");
+          setName(user.name || defaultName);
         } catch (err) {
           console.error("Failed to fetch user:", err);
         }
