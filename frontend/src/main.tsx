@@ -16,7 +16,12 @@ const cognitoAuthConfig = {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider {...cognitoAuthConfig}>
-      <Provider>
+      <Provider
+        defaultTheme="light"
+        forcedTheme="light"
+        enableSystem={false}
+        disableTransitionOnChange
+      >
         <App />
       </Provider>
     </AuthProvider>

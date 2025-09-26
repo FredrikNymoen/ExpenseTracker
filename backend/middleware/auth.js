@@ -1,6 +1,11 @@
 // utils/auth.js
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
+// Polyfill for Lambda environment
+if (typeof globalThis.crypto === 'undefined') {
+  globalThis.crypto = await import('crypto').then(crypto => crypto.webcrypto);
+}
+
 const {
   COGNITO_REGION,
   COGNITO_USER_POOL_ID

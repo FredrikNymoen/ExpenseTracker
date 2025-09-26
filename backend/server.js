@@ -13,6 +13,9 @@ app.use(cors({ origin: true, credentials: true })); // Can be reached from anywh
 app.use(express.json({ limit: "50mb" })); // Allow large images
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
+// health
+app.get("/api/health", (_req, res) => res.json({ ok: true }));
+
 app.use("/api/me", meRoutes);
 app.use("/api/users", users);
 app.use("/api/transactions", transactions);

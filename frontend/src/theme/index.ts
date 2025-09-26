@@ -5,7 +5,7 @@ export const config = defineConfig({
     tokens: {
       colors: {
         brand: {
-          50:  { value: "#E8F5E9" },
+          50: { value: "#E8F5E9" },
           100: { value: "#C8E6C9" },
           200: { value: "#A5D6A7" },
           300: { value: "#81C784" },
@@ -23,9 +23,9 @@ export const config = defineConfig({
     },
     semanticTokens: {
       colors: {
-        background: { value: { base: "#FFFFFF", _dark: "#010a03ff" } },
-        text: { value: { base: "#212121", _dark: "#FFFFFF" } },
-        accent: { value: { base: "#388E3C", _dark: "#388E3C" } },
+        background: { value: "#FFFFFF" },
+        text: { value: "#212121" },
+        accent: { value: "#388E3C" },
       },
     },
   },

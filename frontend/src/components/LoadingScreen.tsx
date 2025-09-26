@@ -8,7 +8,7 @@ import {
 
 const LoadingScreen = () => {
   return (
-    <Center h="100vh" bg="gray.50" transform={"translateY(-20%)"}>
+    <Center h="100vh" bg="gray.50">
       <VStack gap={4}>
         <Image
           src="/expTrLogo.png"

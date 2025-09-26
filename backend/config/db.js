@@ -1,6 +1,10 @@
 import neo4j from "neo4j-driver";
 import dotenv from "dotenv";
-dotenv.config();
+
+// Only load .env in local development
+if (!process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  dotenv.config();
+}
 
 const { NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD } = process.env;
 
@@ -20,8 +24,8 @@ export async function getSession(database = undefined) {
   return driver.session({ database, defaultAccessMode: neo4j.session.WRITE });
 }
 
-// Graceful shutdown
-process.on("SIGINT", async () => {
-  await driver.close();
-  process.exit(0);
-});
+// Graceful shutdown (disabled for serverless)
+// process.on("SIGINT", async () => {
+//   await driver.close();
+//   process.exit(0);
+// });
